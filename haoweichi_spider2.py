@@ -76,7 +76,7 @@ def fetch(ip_file):
         while True:
             try:
                 contents = get_contents(proxy)
-                print ip,'\n', u'正在保存第个人的信息:', contents
+                print ip,'\n', u'正在保存个人信息:', contents
                 if contents == []:
                     break
                 write_data(contents)
