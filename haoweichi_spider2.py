@@ -21,7 +21,7 @@ def get_iplist(fname):
         'Referer': 'http://proxydb.net/?',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.98 Safari/537.36'
     }
-    for i in range(1, 100):
+    for i in range(100):
 
         url = ip_url + str(i*50)
         res = requests.get(url, headers=headers)
@@ -57,7 +57,7 @@ def get_contents(proxy):
 # 将信息写入本地文件csv
 def write_data(contents):
         with open('contents.csv', 'ab') as csvfile :
-            csvfile.write(codecs.BOM_UTF8)
+            csvfile.write(codecs.BOM_UTF8) # 可以写入中文
             spamwriter = csv.writer(csvfile, dialect='excel')
             spamwriter.writerow(contents)
 
@@ -71,6 +71,8 @@ def fetch(ip_file):
 
     for ip in iter(f):
         proxy = {'http': ip.strip()}
+        
+        # ip有效就一直访问直到失败
         while True:
             try:
                 contents = get_contents(proxy)

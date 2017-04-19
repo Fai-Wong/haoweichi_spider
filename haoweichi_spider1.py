@@ -87,7 +87,7 @@ def get_contents(proxy):
 # 将信息写入本地文件csv
 def write_data(contents):
         with open('contents.csv', 'ab') as csvfile :
-            csvfile.write(codecs.BOM_UTF8)
+            csvfile.write(codecs.BOM_UTF8) # 可以写入中文
             spamwriter = csv.writer(csvfile, dialect='excel')
             spamwriter.writerow(contents)
 
@@ -101,6 +101,8 @@ def fetch(ip_file):
 
     for ip in iter(f):
         proxy = {'http': ip.strip()}
+        
+        # ip有效就一直访问直到失败
         while True:
             try:
                 contents = get_contents(proxy)
